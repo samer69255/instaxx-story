@@ -157,7 +157,7 @@ bot.command("login", async (ctx) => {
   if ( !(username && password) )  {
     return ctx.reply(`Use:\n/login [YourUsername] [YourPassword]`);
   }
-  await client.login({username, password});
+  await client.login({username, password}).catch(er => console.log)
   if (client.isLogin()) {
     ctx.reply('تم تسجيل الدخول بنجاح');
   }
