@@ -1,13 +1,13 @@
 var Instagram = require('instagram-web-api');
 
 Instagram.prototype.getNewStories = async function () {
-  var errorCode = false;
+  var errorCode = {code:false};
 
   //Get all Stories
   var data = await this.getStoryReelFeed({onlyStories:true})
-  .catch (err => {errorCode = 1});
+  .catch (err => {errorCode = {code:1, msg:err}});
 
-  if (errorCode) return {error: errorCode}
+  if (errorCode.code) return {error: errorCode}
 
   // remove stories seen from list
   var result = data.filter(key => {
@@ -22,9 +22,9 @@ Instagram.prototype.getNewStories = async function () {
   console.log(result.length)
 
   var allStories = await this.getStoryReels({reelIds :result})
-  .catch(err => {errorCode = 2;});
+  .catch(err => {errorCode = {code:2, msg:err};});
 
-  if (errorCode) return {error: errorCode}
+  if (errorCode.code) return {error: errorCode}
 
   var list = [];
 

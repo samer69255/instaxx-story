@@ -60,6 +60,7 @@ var list = await client.getNewStories(); //Result list of users has new Story (u
 console.log(list);
 if (list.error) {
   if (onError) onError(list.error);
+  
   return;
 }
 
